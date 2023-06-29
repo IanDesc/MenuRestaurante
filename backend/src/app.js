@@ -5,7 +5,7 @@ const router = require('./Control/router');
 
 const app = express();
 app.use(require('../src/helpers/ConnectMongo'));
-app.use("/burguers", router);
+app.use("/", router);
 
 
 
