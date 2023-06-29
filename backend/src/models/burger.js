@@ -4,9 +4,11 @@ const burguerSchema = new mongoose.Schema({
     name: String,
     description: String,
     weight: Number,
-    vegan: boolean,
+    vegan: Boolean,
     price: Number
 });
+
+const burguerModel = mongoose.model("Burguer", burguerSchema);
 
 module.exports = {
     listBurguer: async function() {
@@ -27,20 +29,20 @@ module.exports = {
     },
 
     updateBurguer: async function(id, obj) {
-        let burguer = await burguerModel.findById(id)
+        let burguer = await burguerModel.findById(id);
         if (!burguer) {
-            return false
+            return false;
         }
         
-        Object.keys(obj).forEach(key => burguer[key] = obj[key])
-        await burguer.save()
-        return burguer
+        Object.keys(obj).forEach(key => burguer[key] = obj[key]);
+        await burguer.save();
+        return burguer;
     },
 
     deleteBurguer: async function(id) {
-        return await burguerModel.findByIdAndDelete(id)
+        return await burguerModel.findByIdAndDelete(id);
     },
     // getById: async function(id) {
-    //     return await burguerModel.findById(id).lean()
+    //     return await burguerModel.findById(id).lean();
     // }
 }
