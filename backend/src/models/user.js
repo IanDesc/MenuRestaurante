@@ -12,13 +12,13 @@ module.exports = {
     //     const userList = await userModel.find({}).lean();
     //     return userList;
     // },
+    userModel,
     
     insertUser: async function(email, password) {
         const user = new userModel({
             email: email,
             password: password,
         });
-
         await user.save();
         return user;
     },
