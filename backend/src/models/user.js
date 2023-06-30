@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
     email: String,
     password: String,
+    adm: Boolean,
 });
 
 const userModel = mongoose.model("User", userSchema);
@@ -14,16 +15,17 @@ module.exports = {
     // },
     userModel,
     
-    insertUser: async function(email, password) {
+    insertUser: async function(email, password, adm) {
         const user = new userModel({
             email: email,
             password: password,
+            adm: adm
         });
         await user.save();
         return user;
     },
 
-    updateUser: async function(id, obj) {
+    updateUserSelf: async function(id, obj) {
         let user = await userModel.findById(id);
         if (!user) {
             return false;
