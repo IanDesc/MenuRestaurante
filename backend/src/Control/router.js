@@ -101,7 +101,7 @@ router.post('/burguer', (req, res) => {
         res.json(sucess(burguer));
     }).catch(err => {
         console.log(err)
-        res.status(500).json(fail("Erro! Não foi possivel salvar o novo livro!"))
+        res.status(500).json(fail("Erro! Não foi possivel salvar o novo lanche!"))
     });
 });
 
@@ -157,7 +157,7 @@ router.post('/combo', (req, res) => {
         res.json(sucess(combo));
     }).catch(err => {
         console.log(err)
-        res.status(500).json(fail("Erro! Não foi possivel salvar o novo livro!"))
+        res.status(500).json(fail("Erro! Não foi possivel salvar o novo combo!"))
     })
 });
 
