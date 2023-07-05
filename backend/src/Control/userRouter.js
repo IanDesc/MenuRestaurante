@@ -82,4 +82,4 @@ router.get("/user/:id", verifyToken, (req, res) => {
 });
 
 
-module.exports = userRouter;
+module.exports = router;

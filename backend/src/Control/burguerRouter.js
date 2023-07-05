@@ -90,4 +90,4 @@ router.delete("/burguer/:id", (req, res) => {
     });
 });
 
-module.exports = burguerRouter;
+module.exports = router;

@@ -96,4 +96,4 @@ router.delete("/drink/:id", (req, res) => {
 });
 
 
-module.exports = drinkRouter;
+module.exports = router;
