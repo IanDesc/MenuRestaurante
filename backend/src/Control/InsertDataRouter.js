@@ -106,26 +106,36 @@ router.get("/", (req, res) => {
 
     const userList = [
         {
+            name: "Ricardo",
+            role: "Socio",
             email: "adm1@test.com",
             password: "123456",
             adm: true,
         },
         {
+            name: "Sandra",
+            role: "Socio",
             email: "adm2@test.com",
             password: "123456",
             adm: true,
         },
         {
+            name: "Pedro",
+            role: "gerente",
             email: "user1@test.com",
             password: "123456",
             adm: false,
         },
         {
-            email: "user3@test.com",
+            name: "Julia",
+            role: "atendente",
+            email: "user2@test.com",
             password: "123456",
             adm: false,
         },
         {
+            name: "Paulo",
+            role: "cozinha",
             email: "user3@test.com",
             password: "123456",
             adm: false,
@@ -153,6 +163,8 @@ router.get("/", (req, res) => {
 
     userList.map(item => {
         User.insertUser(
+            item.name,
+            item.role,
             item.email,
             item.password,
             item.adm,

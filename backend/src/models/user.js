@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
+    name: String,
+    role: String,
     email: String,
     password: String,
     adm: Boolean,
@@ -14,8 +16,10 @@ module.exports = {
     //     return userList;
     // },
     
-    insertUser: async function(email, password, adm) {
+    insertUser: async function(name, role, email, password, adm) {
         const user = new userModel({
+            name: name,
+            role: role,
             email: email,
             password: password,
             adm: adm
@@ -39,7 +43,7 @@ module.exports = {
         return userExists;
     },
 
-    updateUserSelf: async function(id, obj) {
+    updateUser: async function(id, obj) {
         let user = await userModel.findById(id);
         if (!user) {
             return false;
