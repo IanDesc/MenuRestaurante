@@ -14,7 +14,7 @@ function fail (message) {
 //PUBLIC ROUTES
 
 //drinks
-router.get('/drink', (req, res) => {
+router.get('/', (req, res) => {
     Drink.listDrink().then((drinkList) => {
         return res.json(success(drinkList));
     })
@@ -38,7 +38,7 @@ function verifyToken (req, res, next) {
 
 
 
-router.post('/drink', (req, res) => {
+router.post('/', (req, res) => {
     const {name, milliliters, alcoholic, price} = req.body;
 
     //validação
@@ -49,14 +49,14 @@ router.post('/drink', (req, res) => {
         alcoholic = true;
     };
     Drink.insertDrink(name, milliliters, alcoholic, price).then(drink => {
-        res.json(sucess(drink));
+        res.json(success(drink));
     }).catch(err => {
         console.log(err)
         res.status(500).json(fail("Erro! Não foi possivel salvar a nova bebida!"))
     });
 });
 
-router.put("/drink/:id", (req, res) => {
+router.put("/:id", (req, res) => {
     const {id} = req.params
     const {name, milliliters, alcoholic, price} = req.body;
 
@@ -72,7 +72,7 @@ router.put("/drink/:id", (req, res) => {
 
     Drink.insertDrink(id, obj).then(drink => {
         if (drink)
-            res.json(sucess(drink))
+            res.json(success(drink))
         else
             res.status(500).json(fail("Id de bebida não encontrado!"));
     }).catch(err => {
@@ -81,12 +81,12 @@ router.put("/drink/:id", (req, res) => {
     });
 });
 
-router.delete("/drink/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     const {id} = req.params;
 
     Drink.deleteDrink(id).then(drink => {
         if (drink)
-            res.json(sucess(drink))
+            res.json(success(drink))
         else
             res.status(500).json(fail("Id de bebida não encontrado!"));
     }).catch(err => {

@@ -6,12 +6,12 @@ app.use(express.json());
 app.use(require('../src/helpers/ConnectMongo'));
 
 const userRouter = require('./Control/userRouter');
-app.use("/", userRouter);
+app.use("/user", userRouter);
 
 const drinkRouter = require('./Control/drinkRouter');
-app.use("/", drinkRouter);
+app.use("/drink", drinkRouter);
 
 const burguerRouter = require('./Control/burguerRouter');
-app.use("/", burguerRouter);
+app.use("/burguer", burguerRouter);
 
 module.exports = app;

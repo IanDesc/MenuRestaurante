@@ -13,7 +13,7 @@ module.export = {
     drinkModel,
 
     listDrink: async function() {
-        const drinkList = await drinkModel.find({}).lean();
+        const drinkList = await drinkModel.find().lean();
         return drinkList;
     },
     

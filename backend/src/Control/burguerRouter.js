@@ -34,7 +34,7 @@ function verifyToken (req, res, next) {
     next();
 }
 
-router.post('/burguer', (req, res) => {
+router.post('/', (req, res) => {
     const {name, description, weight, vegan, price} = req.body;
 
     //validação
@@ -43,14 +43,14 @@ router.post('/burguer', (req, res) => {
     };
 
     Burguer.insertBurguer(name, description, weight, vegan, price).then(burguer => {
-        res.json(sucess(burguer));
+        res.json(success(burguer));
     }).catch(err => {
         console.log(err)
         res.status(500).json(fail("Erro! Não foi possivel salvar o novo lanche!"))
     });
 });
 
-router.put("/burguer/:id", (req, res) => {
+router.put("/:id", (req, res) => {
     const {id} = req.params
     const {name, description, weight, vegan, price} = req.body;
 
@@ -67,7 +67,7 @@ router.put("/burguer/:id", (req, res) => {
 
     Burguer.insertBurguer(id, obj).then(burguer => {
         if (burguer)
-            res.json(sucess(burguer))
+            res.json(success(burguer))
         else
             res.status(500).json(fail("Id de lanche não encontrado!"));
     }).catch(err => {
@@ -76,12 +76,12 @@ router.put("/burguer/:id", (req, res) => {
     });
 });
 
-router.delete("/burguer/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     const {id} = req.params;
 
     Burguer.deleteBurguer(id).then(burguer => {
         if (burguer)
-            res.json(sucess(burguer))
+            res.json(success(burguer))
         else
             res.status(500).json(fail("Id de lanche não encontrado!"));
     }).catch(err => {

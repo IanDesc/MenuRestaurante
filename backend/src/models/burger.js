@@ -25,7 +25,7 @@ module.exports = {
     ComboModel,
 
     listBurguer: async function() {
-        const burguerList = await burguerModel.find({Campo: 1}).limit(3).lean();
+        const burguerList = await burguerModel.find().lean();
         return burguerList;
     },
     

@@ -15,7 +15,7 @@ function fail (message) {
 //PUBLIC ROUTES
 
 //User
-router.post('/auth/register', (req, res) => {
+router.post('/register', (req, res) => {
     const {email, password, adm} = req.body;
 
     //validação
@@ -37,7 +37,7 @@ router.post('/auth/register', (req, res) => {
 
 });
 
-router.post('/auth/login', (req, res) => {
+router.post('/login', (req, res) => {
     const {email, password} = req.body;
 
     //validação
@@ -72,7 +72,7 @@ function verifyToken (req, res, next) {
     next();
 }
 
-router.get("/user/:id", verifyToken, (req, res) => {
+router.get("/:id", verifyToken, (req, res) => {
     const id = req.params.id;
     const user = User.userModel.findById(id, "-password");
     if (!user) {
