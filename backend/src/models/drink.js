@@ -31,8 +31,7 @@ module.exports = {
         let drink = await drinkModel.findById(id);
         if (!drink) {
             return false;
-        }
-        
+        };    
         Object.keys(obj).forEach(key => drink[key] = obj[key]);
         await drink.save();
         return drink;

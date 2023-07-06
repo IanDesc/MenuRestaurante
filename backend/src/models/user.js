@@ -25,17 +25,17 @@ module.exports = {
     },
 
     findUserByEmail: async function(email) {
-        const userExists = await User.userModel.findOne({email: email});
+        const userExists = await userModel.findOne({email: email});
         return userExists;
     },
 
     findUserByLogin: async function(email, password) {
-        const userExists = await User.userModel.findOne({email: email, password: password});
+        const userExists = await userModel.findOne({email: email, password: password});
         return userExists;
     },
 
     findUserById: async function(id) {
-        const userExists = await User.userModel.findOne({_id: id});
+        const userExists = await userModel.findOne({_id: id});
         return userExists;
     },
 

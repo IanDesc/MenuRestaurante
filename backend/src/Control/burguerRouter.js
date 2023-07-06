@@ -57,7 +57,7 @@ router.put("/:id", (req, res) => {
         return res.status(500).json(fail("Nenhuma alteração foi feita!"));
     };
 
-    Burguer.insertBurguer(id, obj).then(burguer => {
+    Burguer.updateBurguer(id, obj).then(burguer => {
         if (burguer)
             res.json(success(burguer))
         else

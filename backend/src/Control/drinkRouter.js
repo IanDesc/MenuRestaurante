@@ -43,6 +43,7 @@ router.post('/', (req, res) => {
 router.put("/:id", (req, res) => {
     const {id} = req.params
     const {name, milliliters, alcoholic, price} = req.body;
+    console.log(req.body);
 
     let obj = {};
     if (name) obj.name = name;
@@ -54,7 +55,7 @@ router.put("/:id", (req, res) => {
         return res.status(500).json(fail("Nenhuma alteração foi feita!"));
     };
 
-    Drink.insertDrink(id, obj).then(drink => {
+    Drink.updateDrink(id, obj).then(drink => {
         if (drink)
             res.json(success(drink))
         else

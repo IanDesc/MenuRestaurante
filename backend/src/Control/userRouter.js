@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
         return res.status(422).json(fail("Todos os campos são obrigatórios"));
     };
 
-    const userExists = User.findUserByEmail(email);
+    const userExists = await User.findUserByEmail(email);
     if (!userExists) {
         return res.status(422).json(fail("Esse email já foi utilizado!"));
     } else {
@@ -44,13 +44,13 @@ router.post('/login', async (req, res) => {
     if (!email || !password){
         return res.status(422).json(fail("Todos os campos são obrigatórios"));
     };
-
-    const userExists = User.findUserByLogin(email, password);
-    console.log(userExists);
+    console.log(User);
+    
+    const userExists = await User.findUserByLogin(email, password);
+ 
     if (!userExists) {
         return res.status(422).json(fail("Email ou senha inválida!"));
     } else {
-
         const secret = process.env.SECRET;
         const token = jwt.sign({id: userExists._id}, secret, { expiresIn: "12h" });
         res.json(success(token));
@@ -73,7 +73,7 @@ function verifyToken (req, res, next) {
 
 router.get("/:id", verifyToken, async (req, res) => {
     const id = req.params.id;
-    const userExists = User.findUserById(id);
+    const userExists = await User.findUserById(id);
     if (!userExists) {
         return res.status(404).json(fail("User não encontrado!"));
     };
