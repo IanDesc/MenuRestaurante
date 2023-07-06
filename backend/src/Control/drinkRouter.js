@@ -13,8 +13,10 @@ function fail (message) {
 
 //PUBLIC ROUTES
 //drinks
-router.get('/', (req, res) => {
-    Drink.listDrink().then((drinkList) => {
+router.get('/:limit/:page', (req, res) => {
+    const {limit, page} = req.params;
+    const skip = (limit * page) - limit;
+    Drink.listDrink(skip, limit).then((drinkList) => {
         return res.json(success(drinkList));
     })
 });

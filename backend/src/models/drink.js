@@ -11,8 +11,8 @@ const drinkModel = mongoose.model("Drink", drinkSchema);
 
 module.exports = {
 
-    listDrink: async function() {
-        const drinkList = await drinkModel.find().lean();
+    listDrink: async function(skip, limit) {
+        const drinkList = await drinkModel.find().skip(skip).limit(limit).lean();
         return drinkList;
     },
     

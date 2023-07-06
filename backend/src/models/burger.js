@@ -13,8 +13,8 @@ const burguerModel = mongoose.model("Burguer", burguerSchema);
 
 module.exports = {
 
-    listBurguer: async function() {
-        const burguerList = await burguerModel.find().lean();
+    listBurguer: async function(skip, limit) {
+        const burguerList = await burguerModel.find().skip(skip).limit(limit).lean();
         return burguerList;
     },
     
