@@ -13,13 +13,6 @@ function fail (message) {
 
 //PUBLIC ROUTES
 
-// router.get('/:limit/:page', (req, res) => {
-//     const {limit, page} = req.params
-//     Burguer.listBurguer(limit, page).then((burguerList) => {
-//         res.json(success(burguerList));
-//     })
-// });
-
 router.get('/:limit/:page', (req, res) => {
     const {limit, page} = req.params;
     const skip = (limit * page) - limit;

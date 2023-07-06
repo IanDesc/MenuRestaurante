@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+require("dotenv").config();
 const jwt = require('jsonwebtoken');
 
 function success (obj) {
@@ -14,7 +15,7 @@ function fail (message) {
 //PUBLIC ROUTES
 
 //User
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
     const {email, password, adm} = req.body;
 
     //validação
@@ -36,7 +37,7 @@ router.post('/register', (req, res) => {
 
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     const {email, password} = req.body;
 
     //validação
@@ -51,7 +52,7 @@ router.post('/login', (req, res) => {
     } else {
 
         const secret = process.env.SECRET;
-        const token = jwt.sign({id: userExists._id}, secret);
+        const token = jwt.sign({id: userExists._id}, secret, { expiresIn: "12h" });
         res.json(success(token));
     };
 });
@@ -59,8 +60,7 @@ router.post('/login', (req, res) => {
 //PRIVATE ROUTES
 
 function verifyToken (req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization;
 
     if(!token){
         return res.status(401).json(fail("Usuario não autorizado!"));
@@ -69,15 +69,15 @@ function verifyToken (req, res, next) {
     const secret = process.env.SECRET;
     jwt.verify(token, secret);
     next();
-}
+};
 
-router.get("/:id", verifyToken, (req, res) => {
+router.get("/:id", verifyToken, async (req, res) => {
     const id = req.params.id;
-    const user = User.findUserById(id);
-    if (!user) {
+    const userExists = User.findUserById(id);
+    if (!userExists) {
         return res.status(404).json(fail("User não encontrado!"));
     };
-    res.status(404).json({user});
+    res.status(404).json({userExists});
 });
 
 
