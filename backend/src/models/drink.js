@@ -7,10 +7,9 @@ const drinkSchema = new mongoose.Schema({
     price: Number
 });
 
-const drinkModel = mongoose.model("Drinks", drinkSchema);
+const drinkModel = mongoose.model("Drink", drinkSchema);
 
-module.export = {
-    drinkModel,
+module.exports = {
 
     listDrink: async function() {
         const drinkList = await drinkModel.find().lean();

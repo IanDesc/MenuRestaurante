@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Burguer = require('../models/burger');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
@@ -23,7 +22,7 @@ router.post('/register', (req, res) => {
         return res.status(422).json(fail("Todos os campos são obrigatórios"));
     };
 
-    const userExists = User.userModel.findOne({email: email});
+    const userExists = User.findUserByEmail(email);
     if (!userExists) {
         return res.status(422).json(fail("Esse email já foi utilizado!"));
     } else {
@@ -45,7 +44,7 @@ router.post('/login', (req, res) => {
         return res.status(422).json(fail("Todos os campos são obrigatórios"));
     };
 
-    const userExists = User.userModel.findOne({email: email, password: password});
+    const userExists = User.findUserByLogin(email, password);
     console.log(userExists);
     if (!userExists) {
         return res.status(422).json(fail("Email ou senha inválida!"));
@@ -74,7 +73,7 @@ function verifyToken (req, res, next) {
 
 router.get("/:id", verifyToken, (req, res) => {
     const id = req.params.id;
-    const user = User.userModel.findById(id, "-password");
+    const user = User.findUserById(id);
     if (!user) {
         return res.status(404).json(fail("User não encontrado!"));
     };

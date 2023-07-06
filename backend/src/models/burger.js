@@ -8,21 +8,10 @@ const burguerSchema = new mongoose.Schema({
     price: Number
 });
 
-const comboSchema = new mongoose.Schema({
-    name1: String,
-    name2: String,
-    description: String,
-    weight: Number,
-    vegan: Boolean,
-    price: Number
-});
 
 const burguerModel = mongoose.model("Burguer", burguerSchema);
-const ComboModel = mongoose.model("Combo", comboSchema);
 
 module.exports = {
-    burguerModel,
-    ComboModel,
 
     listBurguer: async function() {
         const burguerList = await burguerModel.find().lean();
@@ -39,19 +28,6 @@ module.exports = {
         });
         await burguer.save();
         return burguer;
-    },
-
-    insertCombo: async function(obj) {
-        const combo = new ComboModel({
-            name1: name1,
-            name2: name1,
-            description: description,
-            weight: weight,
-            vegan: vegan,
-            price: price
-        });
-        await combo.save();
-        return combo;
     },
 
     updateBurguer: async function(id, obj) {

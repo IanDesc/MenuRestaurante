@@ -12,32 +12,14 @@ function fail (message) {
 };
 
 //PUBLIC ROUTES
-
 //drinks
 router.get('/', (req, res) => {
     Drink.listDrink().then((drinkList) => {
         return res.json(success(drinkList));
     })
-    // res.status(200).send(Drink.listDrink());
 });
 
 //PRIVATE ROUTES
-
-function verifyToken (req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = req.headers.authorization.split(' ')[1];
-
-    if(!token){
-        return res.status(401).json(fail("Usuario não autorizado!"));
-    };
-
-    const secret = process.env.SECRET;
-    jwt.verify(token, secret);
-    next();
-}
-
-
-
 router.post('/', (req, res) => {
     const {name, milliliters, alcoholic, price} = req.body;
 

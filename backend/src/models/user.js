@@ -13,7 +13,6 @@ module.exports = {
     //     const userList = await userModel.find({}).lean();
     //     return userList;
     // },
-    userModel,
     
     insertUser: async function(email, password, adm) {
         const user = new userModel({
@@ -23,6 +22,21 @@ module.exports = {
         });
         await user.save();
         return user;
+    },
+
+    findUserByEmail: async function(email) {
+        const userExists = await User.userModel.findOne({email: email});
+        return userExists;
+    },
+
+    findUserByLogin: async function(email, password) {
+        const userExists = await User.userModel.findOne({email: email, password: password});
+        return userExists;
+    },
+
+    findUserById: async function(id) {
+        const userExists = await User.userModel.findOne({_id: id});
+        return userExists;
     },
 
     updateUserSelf: async function(id, obj) {
