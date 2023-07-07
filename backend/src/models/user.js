@@ -11,10 +11,6 @@ const userSchema = new mongoose.Schema({
 const userModel = mongoose.model("User", userSchema);
 
 module.exports = {
-    // listUser: async function() {
-    //     const userList = await userModel.find({}).lean();
-    //     return userList;
-    // },
     
     insertUser: async function(name, role, email, password, adm) {
         const user = new userModel({
@@ -57,7 +53,4 @@ module.exports = {
     deleteUser: async function(id) {
         return await userModel.findByIdAndDelete(id);
     },
-    // getById: async function(id) {
-    //     return await userModel.findById(id).lean();
-    // }
 }

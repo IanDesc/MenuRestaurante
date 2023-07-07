@@ -44,7 +44,4 @@ module.exports = {
     deleteBurguer: async function(id) {
         return await burguerModel.findByIdAndDelete(id);
     },
-    // getById: async function(id) {
-    //     return await burguerModel.findById(id).lean();
-    // }
 }

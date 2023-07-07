@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Drink = require('../models/drink');
+const { verifyToken } = require("../Middlewares/token");
 const jwt = require('jsonwebtoken');
 
 function success (obj) {
@@ -22,7 +23,7 @@ router.get('/:limit/:page', (req, res) => {
 });
 
 //PRIVATE ROUTES
-router.post('/', (req, res) => {
+router.post('/', verifyToken, (req, res) => {
     const {name, milliliters, alcoholic, price} = req.body;
 
     //validação
@@ -40,7 +41,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", verifyToken, (req, res) => {
     const {id} = req.params
     const {name, milliliters, alcoholic, price} = req.body;
     console.log(req.body);
@@ -66,7 +67,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", verifyToken, (req, res) => {
     const {id} = req.params;
 
     Drink.deleteDrink(id).then(drink => {

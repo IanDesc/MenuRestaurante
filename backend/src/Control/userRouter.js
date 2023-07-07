@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const { verifyToken, verifyAdmin } = require("../Middlewares/token");
 require("dotenv").config();
 const jwt = require('jsonwebtoken');
 
@@ -17,15 +18,18 @@ function fail (message) {
 //User
 router.post('/login', async (req, res) => {
     const {email, password} = req.body;
+    
 
     //validação
     if (!email || !password){
         return res.status(422).json(fail("Todos os campos são obrigatórios"));
     };
     // console.log(User);
+    
 
     const userExists = await User.findUserByLogin(email, password);
- 
+    
+
     if (!userExists) {
         return res.status(422).json(fail("Email ou senha inválida!"));
     } else {
@@ -36,18 +40,6 @@ router.post('/login', async (req, res) => {
 });
 
 //PRIVATE ROUTES
-
-function verifyToken (req, res, next) {
-    const token = req.headers.authorization;
-
-    if(!token){
-        return res.status(401).json(fail("Usuario não autorizado!"));
-    };
-
-    const secret = process.env.SECRET;
-    jwt.verify(token, secret);
-    next();
-};
 
 router.get("/:email", verifyToken, async (req, res) => {
     const email = req.params.email;
@@ -104,15 +96,10 @@ router.put("/updateSelf/:id", verifyToken, (req, res) => {
     });
 });
 
-router.put("/updateOthers/:idAdm/:idUser", verifyToken, async (req, res) => {
-    const {idAdm, idUser} = req.params
+router.put("/updateOthers/:idAdm/:idUser", verifyAdmin, verifyToken, async (req, res) => {
+    const {idAdm, idUser} = req.params;
     const {name, role, email, password, adm} = req.body;
     // console.log(req.body);
-
-    const userExists = await User.findUserById(idAdm);
-    if (!userExists.adm) {
-        return res.status(422).json(fail("Você precisa ser administrador para realizar essa mudança!"));
-    };
 
     let obj = {};
     if (name) obj.name = name;

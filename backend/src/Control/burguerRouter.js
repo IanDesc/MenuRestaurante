@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Burguer = require('../models/burger');
+const { verifyToken, verifyAdmin } = require("../Middlewares/token");
 const jwt = require('jsonwebtoken');
 
 function success (obj) {
@@ -26,7 +27,7 @@ router.get('/:limit/:page', (req, res) => {
 
 //PRIVATE ROUTES
 
-router.post('/', (req, res) => {
+router.post('/', verifyToken, (req, res) => {
     const {name, description, weight, vegan, price} = req.body;
 
     //validação
@@ -42,7 +43,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", verifyToken, (req, res) => {
     const {id} = req.params
     const {name, description, weight, vegan, price} = req.body;
 
@@ -68,7 +69,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", verifyToken, (req, res) => {
     const {id} = req.params;
 
     Burguer.deleteBurguer(id).then(burguer => {
