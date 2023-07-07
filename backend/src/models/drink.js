@@ -40,4 +40,9 @@ module.exports = {
     deleteDrink: async function(id) {
         return await drinkModel.findByIdAndDelete(id);
     },
+
+    findDrinkById: async function(id) {
+        const drinkFinded = await drinkModel.findById(id);
+        return drinkFinded;
+    },
 }

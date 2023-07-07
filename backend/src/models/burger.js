@@ -44,4 +44,9 @@ module.exports = {
     deleteBurguer: async function(id) {
         return await burguerModel.findByIdAndDelete(id);
     },
+
+    findBurguerById: async function(id) {
+        const burguerFinded = await burguerModel.findById(id);
+        return burguerFinded;
+    },
 }

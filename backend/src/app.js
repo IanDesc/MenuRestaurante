@@ -16,4 +16,7 @@ app.use("/drink", drinkRoute);
 const burguerRouter = require('./Control/burguerRouter');
 app.use("/burguer", burguerRouter);
 
+const comboRouter = require('./Control/comboRouter');
+app.use("/combo", comboRouter);
+
 module.exports = app;
